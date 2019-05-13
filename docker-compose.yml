@@ -1,0 +1,23 @@
+version: "2"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SECRET_KEY_BASE: $SECRET_KEY_BASE
+    command: docker/bin/start-rails
+    volumes:
+      - .:/myapp
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgres
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+volumes:
+  postgres:
