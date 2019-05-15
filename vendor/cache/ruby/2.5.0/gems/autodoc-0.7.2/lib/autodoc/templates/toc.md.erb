@@ -1,0 +1,12 @@
+<%# coding: UTF-8 -%>
+## Table of Contents
+<% @table.sort.each do |pathname, documents| -%>
+<% relative_path = pathname.relative_path_from(Autodoc.configuration.pathname) -%>
+* [<%= relative_path %>](<%= relative_path %>)
+<% documents.group_by(&:title).each do |title, docs| -%>
+<% docs.each_with_index do |document, index| -%>
+<% suffix = index == 0 ? "" : "-#{index}" -%>
+ * [<%= title %>](<%= "#{relative_path}##{document.identifier}#{suffix}" %>)
+<% end -%>
+<% end -%>
+<% end -%>
